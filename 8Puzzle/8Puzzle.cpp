@@ -2,19 +2,216 @@
 //
 #include <string>
 #include <iostream>
+#include "Node.h"
+#include <vector>
+
+#define REP(i , l , r) for(int i = l ; i <= r ; i++)
+#define REPD(i , l , r) for(int i = l ; i >= r ; i--)
+#define REPS(i , l , r) for(int i = l ; i < r ; i++)
+
+using namespace std;
+typedef long long int ll;
+
+int puzzle[3][3], posX, posY, checkValue, costValue;
+
+
+bool checkFinish() {
+	int counter1 = 0, counter2 = 0;
+	REP(i, 0, 2) {
+		if (puzzle[0][i] == i + 1) counter1++;
+	}
+
+	REP(i, 0, 2) {
+		if (puzzle[2][i] == 7 - i) counter1++;
+	}
+	if (puzzle[1][0] == 8) {
+		counter1++;
+	}
+	if (puzzle[1][2] == 4) {
+		counter1++;
+	}
+	if (counter1 == 8) return true;
+
+	REP(i, 0, 2) {
+		if (puzzle[0][i] == i) counter2++;
+		if (puzzle[1][i] == i + 3) counter2++;
+		if (puzzle[2][i] == i + 6) counter2++;
+	}
+	if (counter2 == 8) return true;
+	return false;
+}
+
+int countStart() {
+	int sum = 0;
+	REP(q, 0, 8) {
+		int row = q / 3;
+		int col = q % 3;
+		int counter = puzzle[row][col];
+		REP(i, 0, 2) {
+			REP(j, 0, 2) {
+				if ((row < i && puzzle[i][j] < counter && puzzle[i][j] != 0)) {
+					sum++;
+				}
+				else if (row == i && col < j && puzzle[i][j] < counter && puzzle[i][j] != 0) {
+					sum++;
+				}
+			}
+		}
+	}
+	return sum;
+}
+
+void prin() {
+	REP(i, 0, 2) {
+		REP(j, 0, 2) {
+			cout << puzzle[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+void initPuzzle() {
+	cout << "Nhap cac gia tri cho puzzle : ";
+	cin >> puzzle[0][0] >> puzzle[0][1] >> puzzle[0][2];
+	cin >> puzzle[1][0] >> puzzle[1][1] >> puzzle[1][2];
+	cin >> puzzle[2][0] >> puzzle[2][1] >> puzzle[2][2];
+	cout << "Nhap chi phi toi da cua thuat toan = ";
+	cin >> costValue;
+
+	bool checked = true;
+	int sum = 0;
+	REP(i, 0, 2) {
+		REP(j, 0, 2) {
+			sum += puzzle[i][j];
+			if (puzzle[i][j] > 8) {
+				checked = false;
+				break;
+			}
+		}
+	}
+	if (sum != 36 || checked == false) {
+		cout << "Nhap sai du lieu vui long nhap lai" << endl;
+		return initPuzzle();
+	}
+
+	REP(i, 0, 2) {
+		REP(j, 0, 2) {
+			if (puzzle[i][j] == 0) {
+				posX = i;
+				posY = j;
+				return;
+			}
+		}
+	}
+}
+void moveLeft() {
+	swap(puzzle[posX][posY], puzzle[posX][posY - 1]);
+	posY--;
+}
+void moveRight() {
+	swap(puzzle[posX][posY], puzzle[posX][posY + 1]);
+	posY++;
+}
+void moveUp() {
+	swap(puzzle[posX][posY], puzzle[posX - 1][posY]);
+	posX--;
+}
+void moveDown() {
+	swap(puzzle[posX][posY], puzzle[posX + 1][posY]);
+	posX++;
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+
+	int step = 0;
+	ll numOfNode = 0;
+	bool check = checkFinish();
+	initPuzzle();
+	const clock_t begin_time = clock();
+	string way = "";
+	Node nd(puzzle, "", STAY, posX, posY, 0, checkValue, costValue);
+	vector<Node> vt;
+	vt.push_back(nd);
+	checkValue = countStart() % 2;
+	cout << "Trang thai ban dau : " << endl;
+	prin();
+	cout << endl;
+	while (!check && vt.size() != 0) {
+		vector<Node> open;
+		int i = vt.size() - 1;
+		if (vt.at(i).checkFinish()) {
+			way = vt.at(i).Direction;
+			check = true;
+			break;
+		}
+		else {
+			if (vt.at(i).checkMoveUp()) {
+				Node nd = vt.at(i);
+				nd.moveUp();
+				open.push_back(nd);
+			}
+			if (vt.at(i).checkMoveDown()) {
+				Node nd = vt.at(i);
+				nd.moveDown();
+				open.push_back(nd);
+			}
+			if (vt.at(i).checkMoveRight()) {
+				Node nd = vt.at(i);
+				nd.moveRight();
+				open.push_back(nd);
+			}
+			if (vt.at(i).checkMoveLeft()) {
+				Node nd = vt.at(i);
+				nd.moveLeft();
+				open.push_back(nd);
+			}
+		}
+		vt.pop_back();
+
+		REPS(i, 0, open.size()) {
+			REPS(j, i + 1, open.size()) {
+				if (open.at(i).defaultCost(checkValue, costValue) <= open.at(j).defaultCost(checkValue, costValue)) {
+					swap(open.at(i), open.at(j));
+				}
+			}
+
+		}
+		REPS(i, 0, open.size()) {
+			if (open.at(i).defaultCost(checkValue, costValue) == open.at(open.size() - 1).defaultCost(checkValue, costValue))
+				vt.push_back(open.at(i));
+		}
+		numOfNode++;
+	}
+	if (!check) {
+		cout << "Thuat toan that bai , khong tim duoc dich";
+		return 0;
+	}
+	REPS(i, 0, way.length()) {
+		if (way[i] == 'l') {
+			moveLeft();
+			prin();
+			cout << "di chuyen sang trai" << endl << endl;
+		}
+		else if (way[i] == 'r') {
+			moveRight();
+			prin();
+			cout << "di chuyen sang phai" << endl << endl;
+		}
+		else if (way[i] == 'u') {
+			moveUp();
+			prin();
+			cout << "di chuyen len tren" << endl << endl;
+		}
+		else if (way[i] == 'd') {
+			moveDown();
+			prin();
+			cout << "di chuyen xuong duoi" << endl << endl;
+		}
+	}
+	cout << "Thuat toan AKT" << endl;
+	cout << "So buoc di = " << way.length() << endl;
+	cout << "So phep toan da thuc hien = " << numOfNode << endl;
+	cout << "Thoi gian tinh toan = " << float(clock() - begin_time) / CLOCKS_PER_SEC << "s";
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

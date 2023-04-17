@@ -1,4 +1,4 @@
-// 8Puzzle.cpp : This file contains the 'main' function. Program execution begins and ends there.
+﻿// 8Puzzle.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include <string>
 #include <iostream>
@@ -16,7 +16,7 @@ int puzzle[3][3], posX, posY, checkValue, costValue;
 
 
 bool checkFinish() {
-	int counter1 = 0, counter2 = 0;
+	int counter1 = 0, counter2 = 0, counter3 = 0;
 	REP(i, 0, 2) {
 		if (puzzle[0][i] == i + 1) counter1++;
 	}
@@ -30,14 +30,24 @@ bool checkFinish() {
 	if (puzzle[1][2] == 4) {
 		counter1++;
 	}
-	if (counter1 == 8) return true;
+	if (counter1 == 8) return true;/**/
 
-	REP(i, 0, 2) {
+	/*REP(i, 0, 2) {
 		if (puzzle[0][i] == i) counter2++;
 		if (puzzle[1][i] == i + 3) counter2++;
 		if (puzzle[2][i] == i + 6) counter2++;
 	}
-	if (counter2 == 8) return true;
+	if (counter2 == 8) return true;*/
+	
+	REP(i, 0, 2) {
+		if (puzzle[0][i] == i + 1) counter3++;
+		if (puzzle[1][i] == i + 4) counter3++;
+		if (puzzle[2][i] == i + 7) counter3++;
+		
+	}
+	if (puzzle[2][3] == 0) counter3++;
+
+	if (counter3 == 8) return true;
 	return false;
 }
 
@@ -79,6 +89,7 @@ void initPuzzle() {
 	cin >> costValue;
 
 	bool checked = true;
+	
 	int sum = 0;
 	REP(i, 0, 2) {
 		REP(j, 0, 2) {
@@ -126,17 +137,21 @@ int main()
 
 	int step = 0;
 	ll numOfNode = 0;
-	bool check = checkFinish();
 	initPuzzle();
-	const clock_t begin_time = clock();
+	bool check = checkFinish();
+	if (check == true) {
+		cout << "Thuat toan khong can sap xep";
+	};
+	//const clock_t begin_time = clock();
 	string way = "";
 	Node nd(puzzle, "", STAY, posX, posY, 0, checkValue, costValue);
 	vector<Node> vt;
 	vt.push_back(nd);
 	checkValue = countStart() % 2;
+	cout << checkValue;
 	cout << "Trang thai ban dau : " << endl;
 	prin();
-	cout << endl;
+	cout << "----Start--------" << endl;
 	while (!check && vt.size() != 0) {
 		vector<Node> open;
 		int i = vt.size() - 1;
@@ -166,9 +181,12 @@ int main()
 				nd.moveLeft();
 				open.push_back(nd);
 			}
-		}
+		};
+		int c = vt.at(i).checkFinish();
+		//cout << c;
 		vt.pop_back();
-
+		
+		
 		REPS(i, 0, open.size()) {
 			REPS(j, i + 1, open.size()) {
 				if (open.at(i).defaultCost(checkValue, costValue) <= open.at(j).defaultCost(checkValue, costValue)) {
@@ -178,8 +196,16 @@ int main()
 
 		}
 		REPS(i, 0, open.size()) {
-			if (open.at(i).defaultCost(checkValue, costValue) == open.at(open.size() - 1).defaultCost(checkValue, costValue))
+			if (open.at(i).defaultCost(checkValue, costValue) == open.at(open.size() - 1).defaultCost(checkValue, costValue)) {
+				for (int k = 0; k <= 2; k++) {
+					for (int j = 0; j <= 2; j++) {
+						cout << open.at(i).arr[k][j] << ",";
+					};
+					cout << endl;
+				};
+				cout << "------------END---------------" << endl;
 				vt.push_back(open.at(i));
+			}
 		}
 		numOfNode++;
 	}
@@ -212,6 +238,7 @@ int main()
 	cout << "Thuat toan AKT" << endl;
 	cout << "So buoc di = " << way.length() << endl;
 	cout << "So phep toan da thuc hien = " << numOfNode << endl;
-	cout << "Thoi gian tinh toan = " << float(clock() - begin_time) / CLOCKS_PER_SEC << "s";
+	//cout << "Thoi gian tinh toan = " << float(clock() - begin_time) / CLOCKS_PER_SEC << "s";
+	/**/
 	return 0;
 }

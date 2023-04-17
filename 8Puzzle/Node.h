@@ -4,9 +4,9 @@
 #define MOVE(i , l , r) for(int i = l ; i <= r ; i++)
 #define MOVED(i , l , r) for(int i = l ; i >= r ; i--)
 #define MOVES(i , l , r) for(int i = l ; i < r ; i++)
-#define REP(i , l , r) for(int i = l ; i <= r ; i++)
-#define REPD(i , l , r) for(int i = l ; i >= r ; i--)
-#define REPS(i , l , r) for(int i = l ; i < r ; i++)
+#define REP(i, l , r) for(int i = l ; i <= r ; i++)
+#define REPD(i, l , r) for(int i = l ; i >= r ; i--)
+#define REPS(i, l , r) for(int i = l ; i < r ; i++)
 using namespace std; 
 
 enum moveWay {

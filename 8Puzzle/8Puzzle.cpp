@@ -85,9 +85,9 @@ void initPuzzle() {
 	cin >> puzzle[0][0] >> puzzle[0][1] >> puzzle[0][2];
 	cin >> puzzle[1][0] >> puzzle[1][1] >> puzzle[1][2];
 	cin >> puzzle[2][0] >> puzzle[2][1] >> puzzle[2][2];
-	cout << "Nhap chi phi toi da cua thuat toan = ";
-	cin >> costValue;
-
+	/*cout << "Nhap chi phi toi da cua thuat toan = ";
+	cin >> costValue;*/
+	costValue = 10000;
 	bool checked = true;
 	
 	int sum = 0;
@@ -138,17 +138,19 @@ int main()
 	int step = 0;
 	ll numOfNode = 0;
 	initPuzzle();
-	bool check = checkFinish();
-	if (check == true) {
+	//bool check = checkFinish();
+	bool check = false;
+	/*if (check == true) {
 		cout << "Thuat toan khong can sap xep";
-	};
+	};*/
 	//const clock_t begin_time = clock();
 	string way = "";
+	checkValue = countStart() % 2;
 	Node nd(puzzle, "", STAY, posX, posY, 0, checkValue, costValue);
 	vector<Node> vt;
 	vt.push_back(nd);
-	checkValue = countStart() % 2;
 	cout << checkValue;
+	
 	cout << "Trang thai ban dau : " << endl;
 	prin();
 	cout << "----Start--------" << endl;

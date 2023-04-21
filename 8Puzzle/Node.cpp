@@ -135,8 +135,7 @@ bool Node::checkFinish() {
 			if (arr[2][i] == i + 7) counter++;
 
 		}
-		if (arr[2][3] == 0) counter++;
-
+		
 		if (counter == 8) return true;
 		return false;
 	}

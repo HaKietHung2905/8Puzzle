@@ -1,3 +1,2 @@
-﻿  8Puzzle.cpp
-D:\TieuLuan\8Puzzle\8Puzzle\8Puzzle.cpp(159,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  Node.cpp
   8Puzzle.vcxproj -> D:\TieuLuan\8Puzzle\x64\Debug\8Puzzle.exe

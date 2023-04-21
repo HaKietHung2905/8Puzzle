@@ -1,6 +1,4 @@
-﻿// 8Puzzle.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-#include <string>
+﻿#include <string>
 #include <iostream>
 #include "Node.h"
 #include <vector>
@@ -85,8 +83,6 @@ void initPuzzle() {
 	cin >> puzzle[0][0] >> puzzle[0][1] >> puzzle[0][2];
 	cin >> puzzle[1][0] >> puzzle[1][1] >> puzzle[1][2];
 	cin >> puzzle[2][0] >> puzzle[2][1] >> puzzle[2][2];
-	/*cout << "Nhap chi phi toi da cua thuat toan = ";
-	cin >> costValue;*/
 	costValue = 10000;
 	bool checked = true;
 	
@@ -138,12 +134,7 @@ int main()
 	int step = 0;
 	ll numOfNode = 0;
 	initPuzzle();
-	//bool check = checkFinish();
 	bool check = false;
-	/*if (check == true) {
-		cout << "Thuat toan khong can sap xep";
-	};*/
-	//const clock_t begin_time = clock();
 	string way = "";
 	checkValue = countStart() % 2;
 	Node nd(puzzle, "", STAY, posX, posY, 0, checkValue, costValue);
@@ -185,7 +176,6 @@ int main()
 			}
 		};
 		int c = vt.at(i).checkFinish();
-		//cout << c;
 		vt.pop_back();
 		
 		
@@ -212,7 +202,7 @@ int main()
 		numOfNode++;
 	}
 	if (!check) {
-		cout << "Thuat toan that bai , khong tim duoc dich";
+		cout << "Thuat toan that bai";
 		return 0;
 	}
 	REPS(i, 0, way.length()) {
@@ -229,18 +219,15 @@ int main()
 		else if (way[i] == 'u') {
 			moveUp();
 			prin();
-			cout << "di chuyen len tren" << endl << endl;
+			cout << "di chuyen len" << endl << endl;
 		}
 		else if (way[i] == 'd') {
 			moveDown();
 			prin();
-			cout << "di chuyen xuong duoi" << endl << endl;
+			cout << "di chuyen xuong" << endl << endl;
 		}
 	}
-	cout << "Thuat toan AKT" << endl;
+	cout << "Thuat toan A sao" << endl;
 	cout << "So buoc di = " << way.length() << endl;
-	cout << "So phep toan da thuc hien = " << numOfNode << endl;
-	//cout << "Thoi gian tinh toan = " << float(clock() - begin_time) / CLOCKS_PER_SEC << "s";
-	/**/
 	return 0;
 }

@@ -119,12 +119,12 @@ bool Node::checkMoveDown() {
 	int curCost = defaultCost(Check, defautCost);
 	return canMove != DOWN && x < 2 && Cost > curCost;
 }
-//#define REP(i, l , r) for(int i = l ; i <= r ; i++)
+
 bool Node::checkFinish() {
 	int counter = 0;
 	if (Check == 1) {
 		REP(i, 0, 2) {
-			if (arr[0][i] != i + 1 || arr[2][i] != 7 - i) return false;;
+			if (arr[0][i] != i + 1 || arr[2][i] != 7 - i) return false;
 		}
 		return arr[1][0] != 8 || arr[1][2] != 4 ? false : true;
 	}

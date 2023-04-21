@@ -37,9 +37,6 @@ public:
 	void moveUp();
 	void moveDown();
 
-	/*bool canMoveRight();
-	bool canMoveUp();
-	bool canMoveDown();*/
 	
 };
 

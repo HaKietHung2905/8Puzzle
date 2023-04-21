@@ -136,8 +136,8 @@ int main()
 	initPuzzle();
 	bool check = false;
 	string way = "";
-	checkValue = countStart() % 2;
-	//checkValue = 0;
+	//checkValue = countStart() % 2;
+	checkValue = 0;
 	Node nd(puzzle, "", STAY, posX, posY, 0, checkValue, costValue);
 	vector<Node> vt;
 	vt.push_back(nd);

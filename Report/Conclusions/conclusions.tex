@@ -8,4 +8,7 @@
 
 \def\baselinestretch{1.66}
 
-Như vậy, với thuật toán DFS hay A* thì chúng ta đều có thể giải được bài toán 8-Puzzle, tuy nhiên giải thuật A* sẽ mang lại hiệu quả cao hơn. Đây là giải thuật dùng Heruistic để đánh giá các nút duyệt. Từ đó ta sẽ giải bài toán 8-Puzzle mà không tốn quá nhiều chi phí.
+Như vậy, với thuật toán DFS hay A* thì chúng ta đều có thể giải được bài toán 8-Puzzle, tuy nhiên giải thuật A* sẽ mang lại hiệu quả cao hơn. Đây là giải thuật dùng Heruistic để đánh giá các nút duyệt. Từ đó ta sẽ giải bài toán 8-Puzzle mà không tốn quá nhiều chi phí.\\
+A* là một thuật toán tìm kiếm đường đi tốt nhất, dựa trên việc ước lượng khoảng cách còn lại từ trạng thái hiện tại đến trạng thái đích. Vì vậy, nếu ta sử dụng A* cho bài toán 8 puzzle, thuật toán có thể tìm được đường đi tối ưu từ trạng thái ban đầu đến trạng thái đích, tuy nhiên, thời gian thực hiện có thể lâu hơn so với DFS.\\
+
+DFS là một thuật toán tìm kiếm theo chiều sâu, tức là nó tìm kiếm các đường đi sâu nhất trước khi quay lại tìm kiếm các đường đi khác. Khi áp dụng DFS vào bài toán 8 puzzle, thuật toán có thể tìm được một đường đi từ trạng thái ban đầu đến trạng thái đích, tuy nhiên, đường đi này không nhất thiết là đường đi tối ưu và thời gian thực hiện có thể lâu hơn so với A*.\\

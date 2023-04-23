@@ -136,8 +136,8 @@ int main()
 	initPuzzle();
 	bool check = false;
 	string way = "";
-	//checkValue = countStart() % 2;
-	checkValue = 0;
+	checkValue = countStart() % 2;
+	//checkValue = 0;
 	Node nd(puzzle, "", STAY, posX, posY, 0, checkValue, costValue);
 	vector<Node> vt;
 	vt.push_back(nd);
@@ -190,13 +190,13 @@ int main()
 		}
 		REPS(i, 0, open.size()) {
 			if (open.at(i).defaultCost(checkValue, costValue) == open.at(open.size() - 1).defaultCost(checkValue, costValue)) {
-				for (int k = 0; k <= 2; k++) {
+				/*for (int k = 0; k <= 2; k++) {
 					for (int j = 0; j <= 2; j++) {
 						cout << open.at(i).arr[k][j] << ",";
 					};
 					cout << endl;
 				};
-				cout << "------------END---------------" << endl;
+				cout << "------------END---------------" << endl;*/
 				vt.push_back(open.at(i));
 			}
 		}

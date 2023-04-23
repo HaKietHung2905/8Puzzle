@@ -26,7 +26,6 @@ Như hình dưới đây, thuật toán DFS sẽ bắt đầu tại đỉnh A v�
   \end{center}
 \end{figure}
 
-
 \section{Áp dụng thuật toán DFS vào bài toán sử dụng Prolog}
 \subsection{Khởi tạo trạng thái đích}
 \begin{figure}[!htbp]
@@ -43,33 +42,38 @@ Như hình dưới đây, thuật toán DFS sẽ bắt đầu tại đỉnh A v�
   \end{center}
 \end{figure}
 \FloatBarrier
-\subsection{Định nghĩa trạng thái di chuyển}
+\subsection{Thuật toán DFS trong Prolog}
+\begin{figure}[!htbp]
+  \begin{center}
+    \leavevmode
+    \ifpdf
+      \includegraphics[height=0.5in]{DFS_function}
+    \else
+      \includegraphics[bb = 92 86 545 742, height=0.5in]DFS_function}
+    \fi
+    \caption{Thuật toán DFS trong Prolog}
+    \label{FigAir}
+   
+  \end{center}
+\end{figure}
+\FloatBarrier
+Thuật toán trên gồm ba tham số đầu vào là 'States', 'Moves' và 'Path'. Trong đó, 'States' là các danh sách cách trạng thái đã duyệt qua. 'Moves' là danh sách các thao tác di chuyển và 'Path' là đường đi xuất phát từ trạng thái khởi tạo đến trạng thái đích.
+\subsection{Định nghĩa các hàm di chuyển}
+Dưới đây là định nghĩa các thao tác di chuyển trong bà toán, trong đó '*' là ô trống. Mỗi hàm moveState sẽ nhận vào 1 trạng thái sẽ trả về một trạng thái mới sau khi di chuyển.
 \begin{figure}
   \begin{center}
  \leavevmode
     \ifpdf
-      \includegraphics[height=8in]{MoveLeftRight}
+      \includegraphics[height=5in]{MoveLeftRight}
     \else
-      \includegraphics[bb = 92 86 545 742, height=8in]{MoveLeftRight}
+      \includegraphics[bb = 92 86 545 742, height=5in]{MoveLeftRight}
     \fi
-    \caption{Định nghĩa di chuyển trái và phải}
+    \caption{Định nghĩa các hàm di chuyển}
     \label{FigAir}
  \end{center}
 \end{figure}
 \FloatBarrier
 
-\begin{figure}
-  \begin{center}
-    \leavevmode
-    \ifpdf
-      \includegraphics[height=8in]{MoveUpDown}
-    \else
-      \includegraphics[bb = 92 86 545 742, height=8in]{MoveUpDown}
-    \fi
-    \caption{Định nghĩa di chuyển lên và xuống}
-    \label{FigAir}
-  \end{center}
-\end{figure}
 \FloatBarrier
 \subsection{Cài đặt thuật toán và khởi chạy}
 \begin{figure}[!htbp]
@@ -85,15 +89,16 @@ Như hình dưới đây, thuật toán DFS sẽ bắt đầu tại đỉnh A v�
   \end{center}
 \end{figure}
 \FloatBarrier
+Thuật toán bắt đầu bằng cách gọi hàm dfs với tham số đầu vào là danh sách chứa đỉnh xuất phát và danh sách rỗng để lưu các bước đi. Nếu đỉnh xuất phát là đỉnh đích, hàm sẽ trả về danh sách chứa đỉnh xuất phát. Nếu không, hàm sẽ lấy ra tất cả các đỉnh kề với đỉnh hiện tại, đánh dấu đỉnh hiện tại là đã thăm và gọi đệ quy lại hàm dfs để tiếp tục tìm kiếm đường đi. Nếu đường đi đã được tìm thấy, hàm sẽ trả về danh sách các đỉnh tạo thành đường đi từ đỉnh xuất phát đến đỉnh đích.\\
 \subsection{Kết quả đạt được}
 Kết quả đạt được sau khi chạy thuật toán.\\
 \begin{figure}[!htbp]
 \begin{center}
     \leavevmode
     \ifpdf
-      \includegraphics[height=6in]{ResultMiniSize}
+      \includegraphics[height=2in]{Result}
     \else
-      \includegraphics[bb = 92 86 545 742, height=6in]{ResultMiniSize}
+      \includegraphics[bb = 92 86 545 742, height=2in]{Result}
     \fi
     \caption{Kết quả sau khi chạy}
     \label{FigAir}

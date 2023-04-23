@@ -19,25 +19,72 @@ Heuristic là phương pháp giải quyết vấn đề dựa trên phỏng đo�
 Hàm Heuristic là hàm ứng với mỗi trạng thái hay mỗi sự lựa chọn một giá trị ý nghĩa đối với vấn đề dựa vào giá trị hàm này ta lựa chọn hành động.
 
 \section{Mô tả thuật toán}
- Giả sử n0 là trạng ban đầu và n là trạng thái hiện tại, ta có đường đi từ n0 đến n được xác định bằng hàm: f(n) = g(n) + h(n). Trong đó:\\
-1/ g(n) là chi phí từ nút gốc đến nút hiện tại n.\\
-2/ h(n) chi phí ước lượng từ nút hiện tại n tới đích.\\
-3/ f(n) chi phí tổng của n0 đến n.\\
+Giả sử n0 là trạng ban đầu và n là trạng thái hiện tại, ta có đường đi từ n0 đến n được xác định bằng hàm: f(n) = g(n) + h(n). Trong đó:\\
+1/ g(n) là khoảng cách từ đỉnh xuất phát đến đỉnh đang xét.\\
+2/ h(n) khoảng cách ước lượng từ đỉnh đang xét đến đích.\\
 
-Đường đi được xem là chấp nhận được nếu với mọi nút ở trạng thái n: 0 <= h(n) <=h*(n).\\
-Trong đó h*(n) là chi phí thực tế để hoàn thành bài toán.\\
 
 Áp dụng vào bài toán 8 Puzzle như sau:\\
 Đầu vào: trạng thái ban đầu và trạng thái đích.\\
 Đầu ra: tập dữ liệu tất cả các trạng thái từ trạng thái ban đầu đến trạng thái đích.\\
 Điều kiện dừng thuật toán: tìm thấy kết quả trạng thái trùng với trạng thái đích.\\
 
-Thực hiện bài toán: \\
-B1: Thực hiện tính toán các vị trí sai của trạng thái hiện tại so với trạng thái đích và tính chi phí theo công thức f(n) = g(n) + h(n) để chọn ra đường đi tốt nhất. \\
-B2: Tiến hành di chuyển vị trí 1 trong các còn sai vị trí và lặp lại bước số 1 cho đến khi tìm ra kết quả. Lưu ý trạng thái đạt được phải khác với trạng thái của những lần thực hiện trước đó.\\
+Ở đây h(n) sẽ được tính bằng tổng số vị trí còn sai so với trạng thái đích, g(n) sẽ là số bước thuật toán đã thực hiện được. Tiến hành thực bài toán như sau:
+B1: Tiến hành di chuyển các ô xung quanh vị trí trống.
+B2: Thực hiện tính toán các vị trí sai của trạng thái hiện tại so với trạng thái đích và tính f(n) theo công thức f(n) = g(n) + h(n) để chọn ra f(n) có giá trị thấp nhất. f(n) có giá trị thấp nhất sẽ là hướng giải tốt nhất. \\
+B3: Lặp lại bước 1 cho các vị trí tìm được ở bước thứ 2. Lưu ý trạng thái đạt được phải khác với trạng thái của những lần thực hiện trước đó.\\
 
-Dưới đây là hình minh họa cho quá trình thực hiện bài toán\\
+Dưới đây là ví dụ các bước chi tiết thực hiện bài toán với trạng thái ban đầu như sau:\\
+\begin{figure}[!htbp]
+  \begin{center}
+    \leavevmode
+    \ifpdf
+      \includegraphics[height=3in]{Start}
+    \else
+      \includegraphics[bb = 92 86 545 742, height=3in]{Start}
+    \fi
+    \caption{Bước 1}
+    \label{FigAir}
+   
+  \end{center}
+\end{figure}
+\FloatBarrier
 
+Bước 1: Ta có 3 cách di chuyển trong đó trạng thái ở giữa cho ta f(n) giá trị thấp nhất 
+
+\begin{figure}[!htbp]
+  \begin{center}
+    \leavevmode
+    \ifpdf
+      \includegraphics[height=3in]{Step1}
+    \else
+      \includegraphics[bb = 92 86 545 742, height=3in]{Step1}
+    \fi
+    \caption{Bước 1}
+    \label{FigAir}
+   
+  \end{center}
+\end{figure}
+\FloatBarrier
+
+Bước 2: Tiếp tục tính f(n) cho các trạng thái mới tại trạng thái đã chọn ở bước 1.	 
+
+\begin{figure}[!htbp]
+  \begin{center}
+    \leavevmode
+    \ifpdf
+      \includegraphics[height=5in]{Step2}
+    \else
+      \includegraphics[bb = 92 86 545 742, height=5in]{Step2}
+    \fi
+    \caption{Bước 2}
+    \label{FigAir}
+   
+  \end{center}
+\end{figure}
+\FloatBarrier
+
+Bước 3: Hoàn thành bài toán
 \begin{figure}[!htbp]
   \begin{center}
     \leavevmode
@@ -46,7 +93,7 @@ Dưới đây là hình minh họa cho quá trình thực hiện bài toán\\
     \else
       \includegraphics[bb = 92 86 545 742, height=5in]{Flow}
     \fi
-    \caption{Khởi tạo Class}
+    \caption{Bước 3}
     \label{FigAir}
    
   \end{center}
@@ -57,16 +104,15 @@ Dưới đây là hình minh họa cho quá trình thực hiện bài toán\\
 
 \section{Áp dụng thuật toán A* vào bài toán sử dụng C++}
 \subsection{Khởi tạo Class và Function}
-Cài đặt thuật toán A* bài toán ta dùng một Class puzzleArray. Class này gồm 1 mảng 2 chiều 3x3 và các thông số khác bao gồm: \\
-1/ Vị trí x,y nhằm xác định vị trí phần tử của mảng puzzleArray, trong đó phần tử giá trị 0 là đại diện cho ô trống trên Puzzle.\\
+Cài đặt thuật toán A* bài toán ta dùng một Class Node. Class này gồm 1 mảng 2 chiều 3x3 và các thông số khác bao gồm: \\
+1/ Vị trí x,y nhằm xác định vị trí phần tử của mảng Node, trong đó phần tử giá trị 0 là đại diện cho ô trống trên Puzzle.\\
+3/ Step là khoảng cách từ trạng thái xuất phát đến trạng thái hiện tại.
 2/ canMove thể hiện phần tử có thể duy chuyển sang vị trí mới hay không.\\
-3/ Check \\
-5/ Cost là chi phí tối đa để thực hiện cho bài toán này.\\
-Bên cạnh đó, class puzzleArray còn có những Function sau:\\
-1/ checkCost: trả về chi phí dự tính f(n).\\
-2/ checkMoveLeft, checkMoveRight, checkMoveUp, checkMoveDown để xác định hướng mà phần tử có thể di chuyển.\\
-3/ moveLeft, moveRight, moveUp, moveDown: hàm thực hiện đổi chỗ các phần tử liền kề với nhau.\\
-4/ checkFinish: kiểm tra mảng đã trùng với trạng thái đích hay chưa. Nếu trùng thì bài toán sẽ kết thúc.
+5/ Cost là số bước tối đa để thực hiện cho bài toán này. Bài toán sẽ dừng lại nếu số bước thực hiện vượt quá giá trị Cost được mặc định sẵn. Ở đây chương trình đang mặc định giá trị 10000.\\
+Bên cạnh đó, class Node còn có những Function sau:\\
+1/ checkMoveLeft, checkMoveRight, checkMoveUp, checkMoveDown để xác định hướng mà phần tử có thể di chuyển.\\
+2/ moveLeft, moveRight, moveUp, moveDown: hàm thực hiện đổi chỗ các phần tử liền kề với nhau.\\
+3/ checkFinish: kiểm tra mảng đã trùng với trạng thái đích hay chưa. Nếu trùng thì bài toán sẽ kết thúc.
 \begin{figure}[!htbp]
   \begin{center}
     \leavevmode
@@ -75,7 +121,7 @@ Bên cạnh đó, class puzzleArray còn có những Function sau:\\
     \else
       \includegraphics[bb = 92 86 545 742, height=3in]{ClassNode}
     \fi
-    \caption{Mô tả quá trình thực hiện bài toán}
+    \caption{Khởi tạo class Node.}
     \label{FigAir}
    
   \end{center}
@@ -92,7 +138,7 @@ Hàm kiểm tra phần tử trong mảng có thể di chuyển hay không.\\
     \else
       \includegraphics[bb = 92 86 545 742, height=6in]{CheckMove}
     \fi
-    \caption{Một số hàm kiểm tra}
+    \caption{Một số hàm kiểm tra.}
     \label{FigAir}
    
   \end{center}
@@ -113,6 +159,10 @@ Hàm di chuyển.\\
   \end{center}
 \end{figure}
 \FloatBarrier
+
+Ý tưởng và chi tiết thực hiện bài toán:\\
+Đầu tiên, người dùng sẽ nhập dữ liệu đầu vào gồm 9 phần tử từ 0 đến 8, trong đó 0 là đại diện cho vị trí ô trống. Sau đó, chương trình sẽ kiểm tra vị trí các phần tử là lấy ra vị trí hiện tại của phần tử mang giá trị 0. Sau khi lấy được vị trí của giá trị 0, chương trình sẽ đẩy mảng khởi tạo ban đầu vào một Vector và bắt đầu thực hiện tính toán.\\
+Tại đây, vị trí phần tử 0 sẽ được kiểm tra xem có thể di chuyển theo hướng nào (trái, phải, lên xuống). Sau đó, các phần tử sẽ tiến hành hoán đổi vị trí cho nhau, mỗi lần hoán đổi sẽ sinh ra một phần tử được đẩy vào Vector.Ứng với mỗi phần tử được sinh ra, chương trình sẽ kiểm tra trạng thái tại phần tử đó đã trùng với trạn thái đích chưa. Nếu chưa thì chương trình sẽ bắt đầu tính giá trị f(n) và lựa chọn phần tử có giá trị f(n) thấp nhất để tiếp tục thực hiện các bước hoán đổi vị trí. Thao tác này được lặp lại cho đến khi chương trình tìm ra mảng trùng với trạng thái đích hoặc số bước thực hiện vượt quá số bước quy định ban đầu.\\
 \subsection{Kết quả đạt được}
 Kết quả đạt được sau khi chạy thuật toán.\\
 \begin{figure}[!htbp]
@@ -123,7 +173,7 @@ Kết quả đạt được sau khi chạy thuật toán.\\
     \else
       \includegraphics[bb = 92 86 545 742, height=4in]{Result}
     \fi
-    \caption{Một số hàm kiểm tra}
+    \caption{Kết quả thực hiện.}
     \label{FigAir}
    
   \end{center}

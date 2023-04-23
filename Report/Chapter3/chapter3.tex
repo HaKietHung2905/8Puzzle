@@ -8,7 +8,7 @@
 
 \section{Giới thiệu thuật toán}
 DFS hay còn được gọi là tìm kiếm ưu tiên theo chiều sâu, tìm kiếm theo chiều sâu là một thuật toán duyệt trên một cây hoặc đồ thị. Thuật toán sẽ khởi đầu tại gốc hoặc một đỉnh bất kì (đỉnh này được xem như là gốc) và phát triển xa nhất có thể theo mỗi nhánh của gốc đó.\\
-DFS là một dạng tìm kiếm thjoong tin không đầy đủ bởi vì quá trình tìm kiếm được phát triển tới đỉnh con đầu tiên của nút đang tìm kiếm cho tới khi gặp được đỉnh cần tìm hoặc tới một nút không có con. Khi đó giải thuật quay lui về đỉnh vừa mới tìm kiếm ở bước trước. Trong dạng không đệ quy, tất cả các đỉnh chờ được phát triển được bổ sung vào một ngăn xếp LIFO.
+DFS là một dạng tìm kiếm thông tin không đầy đủ bởi vì quá trình tìm kiếm được phát triển tới đỉnh con đầu tiên của nút đang tìm kiếm cho tới khi gặp được đỉnh cần tìm hoặc tới một nút không có con. Khi đó giải thuật quay lui về đỉnh vừa mới tìm kiếm ở bước trước. Thuật toán DFS có thể được thực hiện bằng cách sử dụng một stack để lưu các đỉnh cần thăm và một mảng để đánh dấu các đỉnh đã được thăm. Trong dạng không đệ quy, tất cả các đỉnh chờ được phát triển được bổ sung vào một ngăn xếp LIFO.
 \\ Xét về độ phức tạp, theo không gian DFS sẽ thấp hơn BFS nhưng sẽ tương đương nhau khi xét về thời gian.
 \section{Mô tả thuật toán}
 Như hình dưới đây, thuật toán DFS sẽ bắt đầu tại đỉnh A và đi theo cạnh trái và tiếp tục tìm kiếm cho đến khi hết phần nhánh cây trái rồi mới chuyển sang nhanh con bên phải. Thứ tự sau khi chạy đủ thuật toán sẽ như sau: A, B, D, F,  C, G, E.\\
